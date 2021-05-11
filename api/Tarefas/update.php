@@ -13,28 +13,33 @@
 
     $tarefasObj = new Tarefas($conn);
 
-    $dados = json_decode(file_get_contents("php://input"));
+    $id = $_POST['idTarefa'];
+    $titulo = $_POST['deTituloEdit'];
+    $dataInicio = $_POST['dtDataInicioEdit'];
+    $dataFim = $_POST['dtDataFimEdit'];
+    $horaInicio = isset($_POST['hrHoraInicioEdit']) ? $_POST['hrHoraInicioEdit'] : '00:00:00';
+    $horaFim = isset($_POST['hrHoraFimEdit']) ? $_POST['hrHoraFimEdit'] : '23:59:59';
+    $descricao = $_POST['deDescricaoEdit'];
 
     if(
-        !empty($dados->idTarefa) && 
-        !empty($dados->dtDataInicio) &&
-        !empty($dados->dtDataFim) &&
-        !empty($dados->hrHoraInicio) &&
-        !empty($dados->hrHoraFim) &&
-        !empty($dados->deTituloTarefa)
+        !empty($id) && 
+        !empty($dataInicio) &&
+        !empty($dataFim) &&
+        !empty($titulo)
     ){
-        $tarefasObj->idTarefa = $dados->idTarefa;
-        $tarefasObj->dtDataInicio = (new DateTime($dados->dtDataInicio))->format('Y-m-d');
-        $tarefasObj->dtDataFim = (new DateTime($dados->dtDataFim))->format('Y-m-d');
-        $tarefasObj->hrHoraInicio = (new DateTime($dados->hrHoraInicio))->format('H:i:s');
-        $tarefasObj->hrHoraFim = (new DateTime($dados->hrHoraFim))->format('H:i:s');
-        $tarefasObj->deTituloTarefa = $dados->deTituloTarefa;
-        $tarefasObj->deDescricao = $dados->deDescricao;
+        $tarefasObj->idTarefa = $id;
+        $tarefasObj->dtDataInicio = (new DateTime($dataInicio))->format('Y-m-d');
+        $tarefasObj->dtDataFim = (new DateTime($dataFim))->format('Y-m-d');
+        $tarefasObj->hrHoraInicio = (new DateTime($horaInicio))->format('H:i:s');
+        $tarefasObj->hrHoraFim = (new DateTime($horaFim))->format('H:i:s');
+        $tarefasObj->deTituloTarefa = $titulo;
+        $tarefasObj->deDescricao = $descricao;
         
         if($tarefasObj->update()){
-            http_response_code(200);
-
-            echo json_encode(array("mensagem" => "Tarefa atualizada."));
+            // http_response_code(200);
+            // echo json_encode(array("mensagem" => "Tarefa atualizada."));
+            header('Location: ../../views/main-page.php', true, 301);
+            die();
         }
         else {
             http_response_code(503);

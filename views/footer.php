@@ -56,19 +56,6 @@
 
     <script>
 
-        function abreModal(eventoId){
-            $.ajax({
-                type: "GET",
-                url: '../api/Tarefas/readId.php',
-                data: { id_Tarefa: eventoId},
-                success:function(response)
-                {
-                    console.log('deu certo');
-                },
-                failure: console.log("nao deu certo")
-            });
-        }
-
         document.addEventListener('DOMContentLoaded', function () {
             //debugger;
             var calendarEl = document.getElementById('calendar');
@@ -85,16 +72,40 @@
                         type: "GET",
                         url: '../api/Tarefas/readId.php',
                         data: { id_Tarefa: info.event.id},
-                        success:function(response)
-                        {
-                            window.location.href = '../../views/editPage.php';
-                            //console.log(response);
+                        async: false,
+                        success: function(response){
+                            console.log(response);
+                            $('#idTarefaEdit').val(response.id_Tarefa);
+                            $('#deTituloEdit').val(response.de_TituloTarefa);
+                            $('#dtDataInicioEdit').val(response.dt_DataInicio);
+                            $('#dtDataFimEdit').val(response.dt_DataFim);
+                            $('#deDescricaoEdit').val(response.de_Descricao);
+                            $('#modalEdit').modal('show');
                         },
-                    });
+                        failure: console.log("nao deu certo")
+                    });                   
                 }
             });
             calendar.render();
         });
+
+        function excluirModal(){
+            confirm('Deseja realmente excluir a tarefa?');
+            if(confirm){
+                $.ajax({
+                        type: "POST",
+                        url: '../api/Tarefas/delete.php',
+                        data: { id_Tarefa: $('#idTarefaEdit').val()},
+                        async: false,
+                        success: function(response){
+                            location.reload(true);
+                            console.log('deu certo');
+                        },
+                        failure: console.log("nao deu certo")
+                    });
+            }
+
+        }
 
     </script>
 

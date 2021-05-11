@@ -37,11 +37,9 @@
 
             $listaTarefas [] = $tarefa;
         }
-        //http_response_code(200);
-        echo $id_Tarefa;
-        $_SESSION['edit'] = json_encode($listaTarefas);
-        header('Location: ../../views/editPage.php', true, 301);
-        die();
+        http_response_code(200);
+        
+        echo json_encode($tarefa);
     }
     else
     {

@@ -13,17 +13,19 @@
 
     $tarefasObj = new Tarefas($conn);
 
-    $dados = json_decode(file_get_contents("php://input"));
+    $id = isset($_POST['id_Tarefa']) ? $_POST['id_Tarefa'] : null;
 
     if(
-        !empty($dados->idTarefa) 
+        !empty($id) 
     ){
-        $tarefasObj->idTarefa = $dados->idTarefa;
+        $tarefasObj->idTarefa = $id;
         
         if($tarefasObj->delete()){
-            http_response_code(200);
+            // http_response_code(200);
 
-            echo json_encode(array("mensagem" => "Tarefa excluída."));
+            // echo json_encode(array("mensagem" => "Tarefa excluída."));
+            header('Location: ../../views/main-page.php', true, 301);
+            die();
         }
         else {
             http_response_code(503);
