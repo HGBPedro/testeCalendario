@@ -54,6 +54,50 @@
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
 
+    <script>
+
+        function abreModal(eventoId){
+            $.ajax({
+                type: "GET",
+                url: '../api/Tarefas/readId.php',
+                data: { id_Tarefa: eventoId},
+                success:function(response)
+                {
+                    console.log('deu certo');
+                },
+                failure: console.log("nao deu certo")
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            //debugger;
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                events: "../api/Tarefas/readAll.php",
+                headerToolbar: {
+                    center: 'title',
+                    right: 'prevYear,prev,next,nextYear'
+                },
+                initialView: 'dayGridMonth',
+                eventClick: function(info) {
+                      //alert('Event id: ' + info.event.id);
+                    $.ajax({
+                        type: "GET",
+                        url: '../api/Tarefas/readId.php',
+                        data: { id_Tarefa: info.event.id},
+                        success:function(response)
+                        {
+                            window.location.href = '../../views/editPage.php';
+                            //console.log(response);
+                        },
+                    });
+                }
+            });
+            calendar.render();
+        });
+
+    </script>
+
 </body>
 
 </html>

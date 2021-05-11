@@ -5,7 +5,8 @@
         private $conn;
 
         public $idTarefa;
-        public $dtData;
+        public $dtDataInicio;
+        public $dtDataFim;
         public $hrHoraInicio;
         public $hrHoraFim;
         public $deTitulo;
@@ -36,9 +37,10 @@
         public function create(){
             $query = "INSERT INTO " 
                     . $this->table_name
-                    . " (dt_Data, hr_HoraInicio, hr_HoraFim, de_TituloTarefa, de_Descricao)
+                    . " (dt_DataInicio, dt_DataFim, hr_HoraInicio, hr_HoraFim, de_TituloTarefa, de_Descricao)
                         VALUES( 
-                        :dtData, 
+                        :dtDataInicio,
+                        :dtDataFim, 
                         :hrHoraInicio, 
                         :hrHoraFim, 
                         :deTituloTarefa, 
@@ -46,13 +48,15 @@
             
             $result = $this->conn->prepare($query);
 
-            $this->dtData=htmlspecialchars(strip_tags($this->dtData));
+            $this->dtDataInicio=htmlspecialchars(strip_tags($this->dtDataInicio));
+            $this->dtDataFim=htmlspecialchars(strip_tags($this->dtDataFim));
             $this->hrHoraInicio=htmlspecialchars(strip_tags($this->hrHoraInicio));
             $this->hrHoraFim=htmlspecialchars(strip_tags($this->hrHoraFim));
             $this->deTituloTarefa=htmlspecialchars(strip_tags($this->deTituloTarefa));
             $this->deDescricao=htmlspecialchars(strip_tags($this->deDescricao));
 
-            $result->bindParam(":dtData", $this->dtData);
+            $result->bindParam(":dtDataInicio", $this->dtDataInicio);
+            $result->bindParam(":dtDataFim", $this->dtDataFim);
             $result->bindParam(":hrHoraInicio", $this->hrHoraInicio);
             $result->bindParam(":hrHoraFim", $this->hrHoraFim);
             $result->bindParam(":deTituloTarefa", $this->deTituloTarefa);
@@ -71,7 +75,8 @@
             $query = "UPDATE " 
                     . $this->table_name
                     . " SET
-                         dt_Data = :dtData, 
+                         dt_DataInicio = :dtDataInicio, 
+                         dt_DataFim = :dtDataFim, 
                          hr_HoraInicio = :hrHoraInicio, 
                          hr_HoraFim = :hrHoraFim,
                          de_TituloTarefa = :deTituloTarefa, 
@@ -83,14 +88,16 @@
             $result = $this->conn->prepare($query);
             
             $this->idTarefa = htmlspecialchars(strip_tags($this->idTarefa));
-            $this->dtData = htmlspecialchars(strip_tags($this->dtData));
+            $this->dtDataInicio = htmlspecialchars(strip_tags($this->dtDataInicio));
+            $this->dtDataFim = htmlspecialchars(strip_tags($this->dtDataFim));
             $this->hrHoraInicio = htmlspecialchars(strip_tags($this->hrHoraInicio));
             $this->hrHoraFim = htmlspecialchars(strip_tags($this->hrHoraFim));
             $this->deTituloTarefa = htmlspecialchars(strip_tags($this->deTituloTarefa));
             $this->deDescricao = htmlspecialchars(strip_tags($this->deDescricao));
             
             $result->bindParam(":idTarefa", $this->idTarefa);
-            $result->bindParam(":dtData", $this->dtData);
+            $result->bindParam(":dtDataInicio", $this->dtDataInicio);
+            $result->bindParam(":dtDataFim", $this->dtDataFim);
             $result->bindParam(":hrHoraInicio", $this->hrHoraInicio);
             $result->bindParam(":hrHoraFim", $this->hrHoraFim);
             $result->bindParam(":deTituloTarefa", $this->deTituloTarefa);

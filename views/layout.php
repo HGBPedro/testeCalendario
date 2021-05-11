@@ -29,17 +29,10 @@
     <!-- FullCalendar -->
     <link href='assets/node_modules/fullcalendar/main.css' rel='stylesheet' />
     <script src='assets/node_modules/fullcalendar/main.js'></script>
-    <script>
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth'
-            });
-            calendar.render();
-        });
-
-    </script>
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+    
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
@@ -50,6 +43,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<?php include 'modals.php'; ?>
 </head>
 
 <body>
@@ -59,14 +53,14 @@
         <div class="container d-flex align-items-center justify-content-between">
 
             <div class="logo">
-                <h1 class="text-light"><a href="index.html">Taskviewer 3000</a></h1>
+                <h1 class="text-light"><a href="main-page.php">Taskviewer 3000</a></h1>
                 <!-- Uncomment below if you prefer to use an image logo -->
                 <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
             </div>
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="getstarted" href="about.html">Criar tarefa</a></li>
+                    <li><a type="button" class="getstarted" href="#" data-bs-toggle="modal" data-bs-target="#modalInsert">Criar tarefa</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->

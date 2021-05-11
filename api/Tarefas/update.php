@@ -17,13 +17,15 @@
 
     if(
         !empty($dados->idTarefa) && 
-        !empty($dados->dtData) &&
+        !empty($dados->dtDataInicio) &&
+        !empty($dados->dtDataFim) &&
         !empty($dados->hrHoraInicio) &&
         !empty($dados->hrHoraFim) &&
         !empty($dados->deTituloTarefa)
     ){
         $tarefasObj->idTarefa = $dados->idTarefa;
-        $tarefasObj->dtData = (new DateTime($dados->dtData))->format('Y-m-d');
+        $tarefasObj->dtDataInicio = (new DateTime($dados->dtDataInicio))->format('Y-m-d');
+        $tarefasObj->dtDataFim = (new DateTime($dados->dtDataFim))->format('Y-m-d');
         $tarefasObj->hrHoraInicio = (new DateTime($dados->hrHoraInicio))->format('H:i:s');
         $tarefasObj->hrHoraFim = (new DateTime($dados->hrHoraFim))->format('H:i:s');
         $tarefasObj->deTituloTarefa = $dados->deTituloTarefa;

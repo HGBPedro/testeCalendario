@@ -27,19 +27,21 @@
 
             $tarefa = array(
                 "id_Tarefa" => $id_Tarefa,
-                "dt_Data" => $dt_Data,
-                "hr_HoraInicio" => $hr_HoraInicio,
-                "hr_HoraFim" => $hr_HoraFim,
+                "dt_DataInicio" => $dt_DataInicio,
+                "dt_DataFim" => $dt_DataFim,
+                //"hr_HoraInicio" => $hr_HoraInicio,
+                //"hr_HoraFim" => $hr_HoraFim,
                 "de_TituloTarefa" => $de_TituloTarefa,
                 "de_Descricao" => $de_Descricao
             );
 
             $listaTarefas [] = $tarefa;
         }
-
-        http_response_code(200);
-
-        echo json_encode($listaTarefas);
+        //http_response_code(200);
+        echo $id_Tarefa;
+        $_SESSION['edit'] = json_encode($listaTarefas);
+        header('Location: ../../views/editPage.php', true, 301);
+        die();
     }
     else
     {

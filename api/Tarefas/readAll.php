@@ -21,12 +21,15 @@
             extract($row);
 
             $tarefa = array(
-                "id_Tarefa" => $id_Tarefa,
-                "dt_Data" => $dt_Data,
-                "hr_HoraInicio" => $hr_HoraInicio,
-                "hr_HoraFim" => $hr_HoraFim,
-                "de_TituloTarefa" => $de_TituloTarefa,
-                "de_Descricao" => $de_Descricao
+                "id" => $id_Tarefa,
+                "title" => $de_TituloTarefa,
+                "start" => $dt_DataInicio,
+                "end" => $dt_DataFim,
+                //"startTime" => $hr_HoraInicio,
+                //"endTime" => $hr_HoraFim,
+                //"allDay" => false
+                "progressiveEventRendering" => true,
+                "forceEventDuration" => true
             );
 
             $listaTarefas [] = $tarefa;
@@ -40,7 +43,7 @@
     {
         http_response_code(400);
 
-        echo json_encode(array("mensagem": "Nenhuma tarefa encontrada."));
+        echo json_encode(array("mensagem" => "Nenhuma tarefa encontrada."));
     }
 
 ?>
